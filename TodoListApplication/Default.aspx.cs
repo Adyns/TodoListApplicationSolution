@@ -20,28 +20,28 @@ namespace TodoListApplication
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            GetUser();
+            GetProjeler();
+            int id = 0;
+            int durum_id = 1;
+            if (!String.IsNullOrEmpty(Request.QueryString["id"]))
             {
-                GetProjeler();
-                int id = 0;
-                int durum_id = 1;
-                if (!String.IsNullOrEmpty(Request.QueryString["id"]))
-                {
-                    id = Convert.ToInt32(Request.QueryString["id"]);
-                    durum_id = Convert.ToInt32(Request.QueryString["durum"]);
-                    GetGorevler(id, durum_id);
-                    GetKullanicis();
-                    GetEtikets();
-                    GetDepartmans();
-                    GetDurums();
-                    GetDurumMenu();
-                    Panel1.Visible = true;
-                }
-                else
-                {
-                    Panel1.Visible = false;
-                }
+                id = Convert.ToInt32(Request.QueryString["id"]);
+                durum_id = Convert.ToInt32(Request.QueryString["durum"]);
+                GetGorevler(id, durum_id);
+                GetKullanicis();
+                GetEtikets();
+                GetDepartmans();
+                GetDurums();
+                GetDurumMenu();
+            
+                Panel1.Visible = true;
             }
+            else
+            {
+                Panel1.Visible = false;
+            }
+
         }
 
         private void GetProjeler()
@@ -96,9 +96,21 @@ namespace TodoListApplication
             PlaceHolder1.Controls.Add(new Literal { Text = sb.ToString() });
         }
 
-        public string GetIslem()
+        public void GetUser()
         {
-            return "Hello";
+            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+            string userData = ticket.Name;
+            string userRole = ticket.UserData;
+            if (userRole=="True")
+            {
+                lblrol.Text = "Admin";
+            }
+            else
+            {
+                lblrol.Text = "Kullanıcı";
+            }
+            lblad.Text = userData;            
         }
         public void GetKullanicis()
         {
@@ -199,7 +211,7 @@ namespace TodoListApplication
                 throw ex;
             }
         }
-        private void cmdLogout_ServerClick(object sender, System.EventArgs e)
+        public void cmdLogout_ServerClick(object sender, System.EventArgs e)
         {
             FormsAuthentication.SignOut();
             Response.Redirect("Login.aspx", true);
