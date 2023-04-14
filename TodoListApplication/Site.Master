@@ -1,0 +1,128 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="TodoListApplication.SiteMaster" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <link rel="apple-touch-icon" href="~/Content/app-assets/images/ico/apple-icon-120.png">
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/app-assets/images/ico/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+    <%--    <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>--%>
+
+    <webopt:BundleReference runat="server" Path="~/Content/css" />
+    <!-- BEGIN: Vendor CSS-->
+    <webopt:BundleReference runat="server" Path="~/Content/app-assets/vendors/css/vendors.min.css" />
+    <webopt:BundleReference runat="server" Path="~/Content/app-assets/vendors/css/editors/quill/katex.min.css" />
+    <webopt:BundleReference runat="server" Path="~/Content/app-assets/vendors/css/editors/quill/monokai-sublime.min.css" />
+    <webopt:BundleReference runat="server" Path="~/Content/app-assets/vendors/css/editors/quill/quill.snow.css" />
+    <webopt:BundleReference runat="server" Path="~/Content/app-assets/vendors/css/forms/select/select2.min.css" />
+    <webopt:BundleReference runat="server" Path="~/Content/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css" />
+    <webopt:BundleReference runat="server" Path="~/Content/app-assets/vendors/css/extensions/dragula.min.css" />
+    <webopt:BundleReference runat="server" Path="~/Content/app-assets/vendors/css/extensions/toastr.min.css" />
+    <!-- END: Vendor CSS-->
+
+    <!-- BEGIN: Theme CSS-->
+    <webopt:BundleReference runat="server" Path="~/Content/app-assets/css/bootstrap.css" />
+    <webopt:BundleReference runat="server" Path="~/Content/app-assets/css/bootstrap-extended.css" />
+    <webopt:BundleReference runat="server" Path="~/Content/app-assets/css/colors.css" />
+    <webopt:BundleReference runat="server" Path="~/Content/app-assets/css/components.css" />
+    <webopt:BundleReference runat="server" Path="~/Content/app-assets/css/themes/dark-layout.css" />
+    <webopt:BundleReference runat="server" Path="~/Content/app-assets/css/themes/bordered-layout.css" />
+    <webopt:BundleReference runat="server" Path="~/Content/app-assets/css/themes/semi-dark-layout.css" />
+
+    <!-- BEGIN: Page CSS-->
+    <webopt:BundleReference runat="server" Path="~/Content/app-assets/css/core/menu/menu-types/vertical-menu.css" />
+    <webopt:BundleReference runat="server" Path="~/Content/app-assets/css/plugins/forms/form-quill-editor.css" />
+    <webopt:BundleReference runat="server" Path="~/Content/app-assets/css/plugins/forms/pickers/form-flat-pickr.css" />
+    <webopt:BundleReference runat="server" Path="~/Content/app-assets/css/plugins/extensions/ext-component-toastr.css" />
+    <webopt:BundleReference runat="server" Path="~/Content/app-assets/css/plugins/forms/form-validation.css" />
+    <webopt:BundleReference runat="server" Path="~/Content/app-assets/css/pages/app-todo.css" />
+    <!-- END: Page CSS-->
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <script src="../Content/app-assets/vendors/js/vendors.min.js"></script>
+    <script src="../Content/app-assets/vendors/js/extensions/toastr.min.js"></script>
+    <script src="../Content/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+    <script src="../Content/app-assets/js/scripts/forms/form-select2.js"></script>
+    <script>
+        $('document').ready()
+        {
+            function calc(id) {
+                //let ids = "customCheck" + id;
+                $.ajax({
+                    type: "POST",
+                    url: "Default.aspx/GetIslem",
+                    data: null,
+                    //data: "{id:'1',islem:'1'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        alert(response.d);
+                    },
+                    failure: function (response) {
+                        alert(response.d);
+                    }
+                });
+                //alert(ids);
+                //if (document.getElementById(ids).checked) {
+                //    //alert("Basıldı");
+
+                //    toastr['success']('İçerik', 'Başlık', {
+                //        closeButton: true,
+                //        tapToDismiss: false
+                //    });
+                //} else {
+                //    //alert("İptal");
+                //    toastr['error']('İçerik', 'Başlık', {
+                //        closeButton: true,
+                //        tapToDismiss: false
+                //    });
+                //}
+            }
+
+
+            function AddRecord() {
+                document.getElementById('GorevBaslik').innerHTML = "Görev Kaydetme";
+                $("#MainContent_DropDownList1").select2({
+                    dropdownParent: $("#new-task-modal")
+                });
+                $("#MainContent_DropDownList2").select2({
+                    dropdownParent: $("#new-task-modal")
+                });
+                $("#MainContent_DropDownList3").select2({
+                    dropdownParent: $("#new-task-modal")
+                });
+            }
+
+            function EditRecord(id) {
+                //alert(id);
+                document.getElementById('MainContent_gorev_ids').value = id;
+                $("#MainContent_DropDownList4").select2({
+                    dropdownParent: $("#detail-task-modal")
+                });
+            }
+        }
+    </script>
+</head>
+<body class="">
+    <form runat="server">
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+        </asp:ContentPlaceHolder>
+
+
+
+
+
+
+
+
+        <%--            <footer>
+                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+            </footer>--%>
+    </form>
+</body>
+</html>

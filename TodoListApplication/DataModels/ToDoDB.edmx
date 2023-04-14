@@ -1,0 +1,536 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ToDoListModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Departmanlar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="adi" Type="varchar" MaxLength="50" />
+          <Property Name="aktif" Type="bit" />
+          <Property Name="silindi" Type="bit" />
+          <Property Name="olusturulma_zamani" Type="datetime" />
+          <Property Name="olusturan_kullanici" Type="varchar" MaxLength="50" />
+          <Property Name="guncelleme_zamani" Type="datetime" />
+          <Property Name="guncelleyen_kullanici" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Durumlar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="adi" Type="varchar" MaxLength="50" />
+          <Property Name="aktif" Type="bit" />
+          <Property Name="silindi" Type="bit" />
+          <Property Name="olusturulma_zamani" Type="datetime" />
+          <Property Name="olusturan_kullanici" Type="varchar" MaxLength="50" />
+          <Property Name="guncelleme_zamani" Type="datetime" />
+          <Property Name="guncelleyen_kullanici" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Etiketler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="adi" Type="varchar" MaxLength="50" />
+          <Property Name="aktif" Type="bit" />
+          <Property Name="silindi" Type="bit" />
+          <Property Name="olusturulma_zamani" Type="datetime" />
+          <Property Name="olusturan_kullanici" Type="varchar" MaxLength="50" />
+          <Property Name="guncelleme_zamani" Type="datetime" />
+          <Property Name="guncelleyen_kullanici" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Gorevler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="adi" Type="varchar" MaxLength="50" />
+          <Property Name="aciklama" Type="varchar" MaxLength="2500" />
+          <Property Name="aktif" Type="bit" />
+          <Property Name="silindi" Type="bit" />
+          <Property Name="olusturulma_zamani" Type="datetime" />
+          <Property Name="olusturan_kullanici" Type="varchar" MaxLength="50" />
+          <Property Name="guncelleme_zamani" Type="datetime" />
+          <Property Name="guncelleyen_kullanici" Type="varchar" MaxLength="50" />
+          <Property Name="proje_id" Type="int" />
+          <Property Name="kullanici_id" Type="int" />
+          <Property Name="departman_id" Type="int" />
+          <Property Name="etiket_id" Type="int" />
+          <Property Name="durum_id" Type="int" />
+          <Property Name="baslama_tarihi" Type="datetime" />
+          <Property Name="bitis_tarihi" Type="datetime" />
+          <Property Name="bitirilmesi_gereken_zaman" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Kullanicilar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="adi_soyadi" Type="varchar" MaxLength="50" />
+          <Property Name="depatman_id" Type="int" />
+          <Property Name="aktif" Type="bit" />
+          <Property Name="silindi" Type="bit" />
+          <Property Name="olusturulma_zamani" Type="datetime" />
+          <Property Name="olusturan_kullanici" Type="varchar" MaxLength="50" />
+          <Property Name="guncelleme_zamani" Type="datetime" />
+          <Property Name="guncelleyen_kullanici" Type="varchar" MaxLength="50" />
+          <Property Name="departman_yoneticisi" Type="bit" />
+        </EntityType>
+        <EntityType Name="Projeler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="adi" Type="varchar" MaxLength="50" />
+          <Property Name="aciklama" Type="varchar" MaxLength="2500" />
+          <Property Name="aktif" Type="bit" />
+          <Property Name="silindi" Type="bit" />
+          <Property Name="olusturulma_zamani" Type="datetime" />
+          <Property Name="olusturan_kullanici" Type="varchar" MaxLength="50" />
+          <Property Name="guncelleme_zamani" Type="datetime" />
+          <Property Name="guncelleyen_kullanici" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Gorevler_Departmanlar">
+          <End Role="Departmanlar" Type="Self.Departmanlar" Multiplicity="0..1" />
+          <End Role="Gorevler" Type="Self.Gorevler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departmanlar">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Gorevler">
+              <PropertyRef Name="departman_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gorevler_Durumlar">
+          <End Role="Durumlar" Type="Self.Durumlar" Multiplicity="0..1" />
+          <End Role="Gorevler" Type="Self.Gorevler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Durumlar">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Gorevler">
+              <PropertyRef Name="durum_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gorevler_Etiketler">
+          <End Role="Etiketler" Type="Self.Etiketler" Multiplicity="0..1" />
+          <End Role="Gorevler" Type="Self.Gorevler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Etiketler">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Gorevler">
+              <PropertyRef Name="etiket_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gorevler_Kullanicilar">
+          <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="0..1" />
+          <End Role="Gorevler" Type="Self.Gorevler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Gorevler">
+              <PropertyRef Name="kullanici_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gorevler_Projeler">
+          <End Role="Projeler" Type="Self.Projeler" Multiplicity="0..1" />
+          <End Role="Gorevler" Type="Self.Gorevler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projeler">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Gorevler">
+              <PropertyRef Name="proje_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ToDoListModelStoreContainer">
+          <EntitySet Name="Departmanlar" EntityType="Self.Departmanlar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Durumlar" EntityType="Self.Durumlar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Etiketler" EntityType="Self.Etiketler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gorevler" EntityType="Self.Gorevler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kullanicilar" EntityType="Self.Kullanicilar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Projeler" EntityType="Self.Projeler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Gorevler_Departmanlar" Association="Self.FK_Gorevler_Departmanlar">
+            <End Role="Departmanlar" EntitySet="Departmanlar" />
+            <End Role="Gorevler" EntitySet="Gorevler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gorevler_Durumlar" Association="Self.FK_Gorevler_Durumlar">
+            <End Role="Durumlar" EntitySet="Durumlar" />
+            <End Role="Gorevler" EntitySet="Gorevler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gorevler_Etiketler" Association="Self.FK_Gorevler_Etiketler">
+            <End Role="Etiketler" EntitySet="Etiketler" />
+            <End Role="Gorevler" EntitySet="Gorevler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gorevler_Kullanicilar" Association="Self.FK_Gorevler_Kullanicilar">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="Gorevler" EntitySet="Gorevler" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gorevler_Projeler" Association="Self.FK_Gorevler_Projeler">
+            <End Role="Projeler" EntitySet="Projeler" />
+            <End Role="Gorevler" EntitySet="Gorevler" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ToDoListModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Departmanlar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="aktif" Type="Boolean" />
+          <Property Name="silindi" Type="Boolean" />
+          <Property Name="olusturulma_zamani" Type="DateTime" Precision="3" />
+          <Property Name="olusturan_kullanici" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="guncelleme_zamani" Type="DateTime" Precision="3" />
+          <Property Name="guncelleyen_kullanici" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Gorevlers" Relationship="Self.FK_Gorevler_Departmanlar" FromRole="Departmanlar" ToRole="Gorevler" />
+        </EntityType>
+        <EntityType Name="Etiketler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="aktif" Type="Boolean" />
+          <Property Name="silindi" Type="Boolean" />
+          <Property Name="olusturulma_zamani" Type="DateTime" Precision="3" />
+          <Property Name="olusturan_kullanici" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="guncelleme_zamani" Type="DateTime" Precision="3" />
+          <Property Name="guncelleyen_kullanici" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Gorevlers" Relationship="Self.FK_Gorevler_Etiketler" FromRole="Etiketler" ToRole="Gorevler" />
+        </EntityType>
+        <EntityType Name="Gorevler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="aciklama" Type="String" MaxLength="2500" FixedLength="false" Unicode="false" />
+          <Property Name="aktif" Type="Boolean" />
+          <Property Name="silindi" Type="Boolean" />
+          <Property Name="olusturulma_zamani" Type="DateTime" Precision="3" />
+          <Property Name="olusturan_kullanici" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="guncelleme_zamani" Type="DateTime" Precision="3" />
+          <Property Name="guncelleyen_kullanici" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="kullanici_id" Type="Int32" />
+          <Property Name="departman_id" Type="Int32" />
+          <Property Name="etiket_id" Type="Int32" />
+          <NavigationProperty Name="Departmanlar" Relationship="Self.FK_Gorevler_Departmanlar" FromRole="Gorevler" ToRole="Departmanlar" />
+          <NavigationProperty Name="Etiketler" Relationship="Self.FK_Gorevler_Etiketler" FromRole="Gorevler" ToRole="Etiketler" />
+          <NavigationProperty Name="Kullanicilar" Relationship="Self.FK_Gorevler_Kullanicilar" FromRole="Gorevler" ToRole="Kullanicilar" />
+          <Property Name="durum_id" Type="Int32" />
+          <NavigationProperty Name="Durumlar" Relationship="ToDoListModel.FK_Gorevler_Durumlar" FromRole="Gorevler" ToRole="Durumlar" />
+          <Property Name="baslama_tarihi" Type="DateTime" Precision="3" />
+          <Property Name="bitis_tarihi" Type="DateTime" Precision="3" />
+          <Property Name="bitirilmesi_gereken_zaman" Type="DateTime" Precision="3" />
+          <Property Name="proje_id" Type="Int32" />
+          <NavigationProperty Name="Projeler" Relationship="ToDoListModel.FK_Gorevler_Projeler" FromRole="Gorevler" ToRole="Projeler" />
+        </EntityType>
+        <EntityType Name="Kullanicilar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adi_soyadi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="depatman_id" Type="Int32" />
+          <Property Name="aktif" Type="Boolean" />
+          <Property Name="silindi" Type="Boolean" />
+          <Property Name="olusturulma_zamani" Type="DateTime" Precision="3" />
+          <Property Name="olusturan_kullanici" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="guncelleme_zamani" Type="DateTime" Precision="3" />
+          <Property Name="guncelleyen_kullanici" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Gorevlers" Relationship="Self.FK_Gorevler_Kullanicilar" FromRole="Kullanicilar" ToRole="Gorevler" />
+          <Property Name="departman_yoneticisi" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Gorevler_Departmanlar">
+          <End Role="Departmanlar" Type="Self.Departmanlar" Multiplicity="0..1" />
+          <End Role="Gorevler" Type="Self.Gorevler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departmanlar">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Gorevler">
+              <PropertyRef Name="departman_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gorevler_Etiketler">
+          <End Role="Etiketler" Type="Self.Etiketler" Multiplicity="0..1" />
+          <End Role="Gorevler" Type="Self.Gorevler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Etiketler">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Gorevler">
+              <PropertyRef Name="etiket_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gorevler_Kullanicilar">
+          <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="0..1" />
+          <End Role="Gorevler" Type="Self.Gorevler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Gorevler">
+              <PropertyRef Name="kullanici_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ToDoListEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Departmanlars" EntityType="Self.Departmanlar" />
+          <EntitySet Name="Etiketlers" EntityType="Self.Etiketler" />
+          <EntitySet Name="Gorevlers" EntityType="Self.Gorevler" />
+          <EntitySet Name="Kullanicilars" EntityType="Self.Kullanicilar" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_Gorevler_Departmanlar" Association="Self.FK_Gorevler_Departmanlar">
+            <End Role="Departmanlar" EntitySet="Departmanlars" />
+            <End Role="Gorevler" EntitySet="Gorevlers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gorevler_Etiketler" Association="Self.FK_Gorevler_Etiketler">
+            <End Role="Etiketler" EntitySet="Etiketlers" />
+            <End Role="Gorevler" EntitySet="Gorevlers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gorevler_Kullanicilar" Association="Self.FK_Gorevler_Kullanicilar">
+            <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+            <End Role="Gorevler" EntitySet="Gorevlers" />
+          </AssociationSet>
+          <EntitySet Name="Durumlars" EntityType="ToDoListModel.Durumlar" />
+          <AssociationSet Name="FK_Gorevler_Durumlar" Association="ToDoListModel.FK_Gorevler_Durumlar">
+            <End Role="Durumlar" EntitySet="Durumlars" />
+            <End Role="Gorevler" EntitySet="Gorevlers" />
+          </AssociationSet>
+          <EntitySet Name="Projelers" EntityType="ToDoListModel.Projeler" />
+          <AssociationSet Name="FK_Gorevler_Projeler" Association="ToDoListModel.FK_Gorevler_Projeler">
+            <End Role="Projeler" EntitySet="Projelers" />
+            <End Role="Gorevler" EntitySet="Gorevlers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Durumlar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="aktif" Type="Boolean" />
+          <Property Name="silindi" Type="Boolean" />
+          <Property Name="olusturulma_zamani" Type="DateTime" Precision="3" />
+          <Property Name="olusturan_kullanici" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="guncelleme_zamani" Type="DateTime" Precision="3" />
+          <Property Name="guncelleyen_kullanici" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Gorevlers" Relationship="ToDoListModel.FK_Gorevler_Durumlar" FromRole="Durumlar" ToRole="Gorevler" />
+        </EntityType>
+        <Association Name="FK_Gorevler_Durumlar">
+          <End Type="ToDoListModel.Durumlar" Role="Durumlar" Multiplicity="0..1" />
+          <End Type="ToDoListModel.Gorevler" Role="Gorevler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Durumlar">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Gorevler">
+              <PropertyRef Name="durum_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Projeler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="aciklama" Type="String" MaxLength="2500" FixedLength="false" Unicode="false" />
+          <Property Name="aktif" Type="Boolean" />
+          <Property Name="silindi" Type="Boolean" />
+          <Property Name="olusturulma_zamani" Type="DateTime" Precision="3" />
+          <Property Name="olusturan_kullanici" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="guncelleme_zamani" Type="DateTime" Precision="3" />
+          <Property Name="guncelleyen_kullanici" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Gorevlers" Relationship="ToDoListModel.FK_Gorevler_Projeler" FromRole="Projeler" ToRole="Gorevler" />
+        </EntityType>
+        <Association Name="FK_Gorevler_Projeler">
+          <End Type="ToDoListModel.Projeler" Role="Projeler" Multiplicity="0..1" />
+          <End Type="ToDoListModel.Gorevler" Role="Gorevler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projeler">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Gorevler">
+              <PropertyRef Name="proje_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ToDoListModelStoreContainer" CdmEntityContainer="ToDoListEntities">
+          <EntitySetMapping Name="Departmanlars">
+            <EntityTypeMapping TypeName="ToDoListModel.Departmanlar">
+              <MappingFragment StoreEntitySet="Departmanlar">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="adi" ColumnName="adi" />
+                <ScalarProperty Name="aktif" ColumnName="aktif" />
+                <ScalarProperty Name="silindi" ColumnName="silindi" />
+                <ScalarProperty Name="olusturulma_zamani" ColumnName="olusturulma_zamani" />
+                <ScalarProperty Name="olusturan_kullanici" ColumnName="olusturan_kullanici" />
+                <ScalarProperty Name="guncelleme_zamani" ColumnName="guncelleme_zamani" />
+                <ScalarProperty Name="guncelleyen_kullanici" ColumnName="guncelleyen_kullanici" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Etiketlers">
+            <EntityTypeMapping TypeName="ToDoListModel.Etiketler">
+              <MappingFragment StoreEntitySet="Etiketler">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="adi" ColumnName="adi" />
+                <ScalarProperty Name="aktif" ColumnName="aktif" />
+                <ScalarProperty Name="silindi" ColumnName="silindi" />
+                <ScalarProperty Name="olusturulma_zamani" ColumnName="olusturulma_zamani" />
+                <ScalarProperty Name="olusturan_kullanici" ColumnName="olusturan_kullanici" />
+                <ScalarProperty Name="guncelleme_zamani" ColumnName="guncelleme_zamani" />
+                <ScalarProperty Name="guncelleyen_kullanici" ColumnName="guncelleyen_kullanici" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gorevlers">
+            <EntityTypeMapping TypeName="ToDoListModel.Gorevler">
+              <MappingFragment StoreEntitySet="Gorevler">
+                <ScalarProperty Name="proje_id" ColumnName="proje_id" />
+                <ScalarProperty Name="bitirilmesi_gereken_zaman" ColumnName="bitirilmesi_gereken_zaman" />
+                <ScalarProperty Name="bitis_tarihi" ColumnName="bitis_tarihi" />
+                <ScalarProperty Name="baslama_tarihi" ColumnName="baslama_tarihi" />
+                <ScalarProperty Name="durum_id" ColumnName="durum_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="adi" ColumnName="adi" />
+                <ScalarProperty Name="aciklama" ColumnName="aciklama" />
+                <ScalarProperty Name="aktif" ColumnName="aktif" />
+                <ScalarProperty Name="silindi" ColumnName="silindi" />
+                <ScalarProperty Name="olusturulma_zamani" ColumnName="olusturulma_zamani" />
+                <ScalarProperty Name="olusturan_kullanici" ColumnName="olusturan_kullanici" />
+                <ScalarProperty Name="guncelleme_zamani" ColumnName="guncelleme_zamani" />
+                <ScalarProperty Name="guncelleyen_kullanici" ColumnName="guncelleyen_kullanici" />
+                <ScalarProperty Name="kullanici_id" ColumnName="kullanici_id" />
+                <ScalarProperty Name="departman_id" ColumnName="departman_id" />
+                <ScalarProperty Name="etiket_id" ColumnName="etiket_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kullanicilars">
+            <EntityTypeMapping TypeName="ToDoListModel.Kullanicilar">
+              <MappingFragment StoreEntitySet="Kullanicilar">
+                <ScalarProperty Name="departman_yoneticisi" ColumnName="departman_yoneticisi" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="adi_soyadi" ColumnName="adi_soyadi" />
+                <ScalarProperty Name="depatman_id" ColumnName="depatman_id" />
+                <ScalarProperty Name="aktif" ColumnName="aktif" />
+                <ScalarProperty Name="silindi" ColumnName="silindi" />
+                <ScalarProperty Name="olusturulma_zamani" ColumnName="olusturulma_zamani" />
+                <ScalarProperty Name="olusturan_kullanici" ColumnName="olusturan_kullanici" />
+                <ScalarProperty Name="guncelleme_zamani" ColumnName="guncelleme_zamani" />
+                <ScalarProperty Name="guncelleyen_kullanici" ColumnName="guncelleyen_kullanici" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ToDoListModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Durumlars">
+            <EntityTypeMapping TypeName="ToDoListModel.Durumlar">
+              <MappingFragment StoreEntitySet="Durumlar">
+                <ScalarProperty Name="guncelleyen_kullanici" ColumnName="guncelleyen_kullanici" />
+                <ScalarProperty Name="guncelleme_zamani" ColumnName="guncelleme_zamani" />
+                <ScalarProperty Name="olusturan_kullanici" ColumnName="olusturan_kullanici" />
+                <ScalarProperty Name="olusturulma_zamani" ColumnName="olusturulma_zamani" />
+                <ScalarProperty Name="silindi" ColumnName="silindi" />
+                <ScalarProperty Name="aktif" ColumnName="aktif" />
+                <ScalarProperty Name="adi" ColumnName="adi" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projelers">
+            <EntityTypeMapping TypeName="ToDoListModel.Projeler">
+              <MappingFragment StoreEntitySet="Projeler">
+                <ScalarProperty Name="guncelleyen_kullanici" ColumnName="guncelleyen_kullanici" />
+                <ScalarProperty Name="guncelleme_zamani" ColumnName="guncelleme_zamani" />
+                <ScalarProperty Name="olusturan_kullanici" ColumnName="olusturan_kullanici" />
+                <ScalarProperty Name="olusturulma_zamani" ColumnName="olusturulma_zamani" />
+                <ScalarProperty Name="silindi" ColumnName="silindi" />
+                <ScalarProperty Name="aktif" ColumnName="aktif" />
+                <ScalarProperty Name="aciklama" ColumnName="aciklama" />
+                <ScalarProperty Name="adi" ColumnName="adi" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
