@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="76dc67a709b849259edfa7322dbc862d" Name="Diagram1">
         <EntityTypeShape EntityType="ToDoListModel.Departmanlar" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="ToDoListModel.Etiketler" Width="1.5" PointX="5.5" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ToDoListModel.Etiketler" Width="1.5" PointX="5.5" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="ToDoListModel.Gorevler" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="ToDoListModel.Kullanicilar" Width="1.5" PointX="5.5" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="ToDoListModel.sysdiagram" Width="1.5" PointX="10.75" PointY="1.125" IsExpanded="true" />

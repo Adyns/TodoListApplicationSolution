@@ -42,6 +42,7 @@
     <webopt:BundleReference runat="server" Path="~/Content/app-assets/css/plugins/extensions/ext-component-toastr.css" />
     <webopt:BundleReference runat="server" Path="~/Content/app-assets/css/plugins/forms/form-validation.css" />
     <webopt:BundleReference runat="server" Path="~/Content/app-assets/css/pages/app-todo.css" />
+    <webopt:BundleReference runat="server" Path="~/Content/app-assets/css/pages/authentication.css" />
     <!-- END: Page CSS-->
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <script src="../Content/app-assets/vendors/js/vendors.min.js"></script>

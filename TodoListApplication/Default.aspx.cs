@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -197,6 +198,11 @@ namespace TodoListApplication
             {
                 throw ex;
             }
+        }
+        private void cmdLogout_ServerClick(object sender, System.EventArgs e)
+        {
+            FormsAuthentication.SignOut();
+            Response.Redirect("Login.aspx", true);
         }
     }
 }

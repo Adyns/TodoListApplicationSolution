@@ -30,6 +30,8 @@ namespace TodoListApplication.DataModels
         public Nullable<System.DateTime> guncelleme_zamani { get; set; }
         public string guncelleyen_kullanici { get; set; }
         public Nullable<bool> departman_yoneticisi { get; set; }
+        public string giris_adi { get; set; }
+        public string giris_sifre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gorevler> Gorevlers { get; set; }
